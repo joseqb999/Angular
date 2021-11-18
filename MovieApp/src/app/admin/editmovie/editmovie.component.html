@@ -1,0 +1,42 @@
+<div class="container" *ngIf="this.service.movieSelected;else elseBlock">
+  <form #form="ngForm" (submit)="onSubmit(form)">
+    <div class="form-group">
+      <label for="exampleInputTitle1">Movie Name</label>
+      <input type="text" class="form-control" name="Title" id="exampleInputTitle1" [(ngModel)]="form.Title">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputSummary1">Summary</label>
+      <input type="text" class="form-control" name="Summary" id="exampleInputSummary1" placeholder="Summary" [(ngModel)]="form.Summary">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputRD1">Release Date</label>
+      <input type="date" class="form-control" name="ReleaseDate" id="exampleInputRD1" [(ngModel)]="form.ReleaseDate">
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" name="InTheaters" id="exampleCheck1" [(ngModel)]="form.InTheaters">
+      <label class="form-check-label" for="exampleCheck1">In Theaters</label>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-warning">Edit Movie</button>
+    </div>
+  </form>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Summary</th>
+        <th>Release Date</th>
+        <th>InTheaters</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let repo of movie;">
+      <tr >
+        <td>{{repo.title}}</td>
+        <td>{{repo.summary}}</td>
+        <td>{{repo.releaseDate | date}}</td>
+        <td>{{repo.inTheaters}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #elseBlock>No Movie Selected.</ng-template>

@@ -1,0 +1,17 @@
+a{
+    margin:0.5%;
+    width: 18%;
+}
+
+.movies {
+  background-color: rgba(254, 240, 225,0.2);
+}
+
+.actors {
+  background-color: rgba(254, 240, 225,0.2);
+}
+
+.action-buttons {
+  margin:2.5%;
+}
+

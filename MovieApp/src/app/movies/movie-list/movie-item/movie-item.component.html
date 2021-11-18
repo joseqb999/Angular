@@ -1,0 +1,16 @@
+<!-- <div class="list-group" *ngFor="let movie of allMovies | async">
+    <label class="list-group-item py-3" for="listGroupCheckableRadios1">
+      {{movie.title}}
+      <span class="d-block small opacity-50">{{movie.summary}}</span>
+    </label>
+  </div> -->
+
+  <div class="list-group" (click)="onSelected()">
+    <label class="list-group-item py-3" for="listGroupCheckableRadios1">
+      {{movie.title}}
+      <span class="d-block small opacity-50">{{movie.summary}}</span>
+      <!-- <span class="d-block small opacity-50" *ngIf="movie.inTheaters">
+        <p>This Movie is Running in Theaters.</p></span>
+      <span class="d-block small opacity-50" *ngIf="!movie.inTheaters">Not in Theaters presently.</span> -->
+    </label>
+  </div>

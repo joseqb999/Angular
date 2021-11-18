@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="form-row text-center action-buttons">
+    <a class="btn btn-info" routerLink="/Admin/createMovie">Create Movie</a>
+    <a class="btn btn-dark" routerLink="/Admin/castActor">Cast Actor</a>
+    <a class="btn btn-info" routerLink="/Admin/createActor">Create Actor</a>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <table class='table movies table-striped '>
+        <caption>List of Movies</caption>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Summary</th>
+            <th>Release Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let movies of moviesList;">
+          <tr *ngFor="let repo of movies;">
+            <td>{{repo.title}}</td>
+            <td>{{repo.summary}}</td>
+            <td>{{repo.releaseDate | date}}</td>
+            <td><button class="btn btn-warning" (click)="editMovieSelect(this.repo.id)" routerLink="/Admin/editMovie">Edit</button></td>
+            <td><button class="btn btn-danger" (click)="deleteMovie(this.repo.id);">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+     </div>
+    <div class="col-md-7">
+      <table class='table actors table-striped'>
+        <caption>List of Actors</caption>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Biography</th>
+            <th>Date of Birth</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let actors of actorsList;">
+          <tr *ngFor="let rep of actors;">
+            <td>{{rep.name}}</td>
+            <td>{{rep.biography}}</td>
+            <td>{{rep.dateOfBirth | date}}</td>
+            <td><button class="btn btn-warning" (click)="editActorSelect(this.rep.id)" routerLink="/Admin/editActor">Edit</button></td>
+            <td><button class="btn btn-danger" (click)="deleteActor(this.rep.id);">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>

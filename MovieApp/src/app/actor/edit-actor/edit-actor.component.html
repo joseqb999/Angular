@@ -1,0 +1,35 @@
+<form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+  <div class="container">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputName4">Name</label>
+        <input type="text" name="Name" #Name="ngModel" [(ngModel)]="form.Name" class="form-control" id="inputName4">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputBio4">Biography</label>
+        <input type="text" name="Biography" #Biography="ngModel" [(ngModel)]="form.Biography" class="form-control" id="inputBio4">
+      </div>
+    </div>
+    <div class="form-row">
+      <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Update</button>
+    </div>
+    <table class='table'>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Biography</th>
+          <th>Date Of Birth</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let repo of actorDetail;">
+          <td>{{repo.name}}</td>
+          <td>{{repo.biography}}</td>
+          <td>{{repo.dateOfBirth | date}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>

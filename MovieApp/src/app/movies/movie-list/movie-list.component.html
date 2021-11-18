@@ -1,0 +1,13 @@
+<div class="row">
+    <!-- <div class="col-xs-12">
+      <button class="btn btn-success">Add Movie</button>
+    </div> -->
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <app-movie-item 
+      *ngFor="let movies of movieList"
+      [movie]="movies"></app-movie-item>
+      <!-- Write loop for each item -->
+    </div>
+  </div>
