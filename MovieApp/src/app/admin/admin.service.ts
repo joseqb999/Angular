@@ -54,4 +54,13 @@ export class AdminService {
   getActorByActorId(): Observable<any> {
     return this.http.get(this.rootURL + '/people/' + this.actorSelected);
   }
+
+  postMoviesActor(formData: any) {
+    let req = {};
+    req["PersonId"] = this.actorSelected;
+    req["MovieId"] = this.movieSelected;
+    req["Character"] = formData.Character;
+    console.log(req);
+    return this.http.post(this.rootURL + '/moviesactors', req);
+  }
 }

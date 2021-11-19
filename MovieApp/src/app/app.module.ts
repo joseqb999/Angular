@@ -24,6 +24,8 @@ import { DeleteactorComponent } from './admin/deleteactor/deleteactor.component'
 import { CreatemovieComponent } from './admin/createmovie/createmovie.component';
 import { EditmovieComponent } from './admin/editmovie/editmovie.component';
 import { DeletemovieComponent } from './admin/deletemovie/deletemovie.component';
+import { CastactorComponent } from './admin/castactor/castactor.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -43,14 +45,16 @@ import { DeletemovieComponent } from './admin/deletemovie/deletemovie.component'
     DeleteactorComponent,
     CreatemovieComponent,
     EditmovieComponent,
-    DeletemovieComponent
+    DeletemovieComponent,
+    CastactorComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

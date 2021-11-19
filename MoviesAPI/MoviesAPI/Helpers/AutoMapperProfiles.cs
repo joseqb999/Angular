@@ -13,6 +13,7 @@ namespace MoviesAPI.Helpers
     {
         public AutoMapperProfiles()
         {
+            CreateMap<MoviesActors, MoviesActorsCreationDTO>().ReverseMap();
 
             CreateMap<Person, PersonDTO>().ReverseMap();
 

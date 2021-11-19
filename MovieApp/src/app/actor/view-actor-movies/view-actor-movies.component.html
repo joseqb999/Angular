@@ -3,11 +3,11 @@
     <div class="col-sm" *ngFor="let m of mov;">
       <div class="card text-center">
         <div>
-          <img class="card-img-top" src="https://i.pinimg.com/originals/3e/d2/ae/3ed2ae5ad26767a8fe0063a0485d5ab5.jpg" alt="Movie Poster">
+          <img class="card-img-top" src="{{m.poster}}" alt="Movie Poster">
         </div>
         <div class="card-body">
           <h5 class="card-title">{{m.title}}</h5>
-          <p class="card-text">{{m.character}}</p>
+          <p class="card-text">Your Character: {{m.character}}</p>
         </div>
       </div>
     </div>

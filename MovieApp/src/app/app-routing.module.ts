@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MoviesComponent } from './movies/movies.component';
-//import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { AdminComponent } from './admin/admin.component';
 import { ActorComponent } from './actor/actor.component';
@@ -13,6 +12,7 @@ import { EditActorComponent } from './actor/edit-actor/edit-actor.component';
 import { ViewActorMoviesComponent } from './actor/view-actor-movies/view-actor-movies.component';
 import { EditmovieComponent } from './admin/editmovie/editmovie.component';
 import { EditactorComponent } from './admin/editactor/editactor.component';
+import { CastactorComponent } from './admin/castactor/castactor.component';
 
 const routes: Routes = [
     {
@@ -63,7 +63,7 @@ const routes: Routes = [
     },
     {
       path: 'Admin/castActor',
-      component: AdminComponent,
+      component: CastactorComponent,
       canActivate: [AuthGuard],
       data: { roles: [Role.Admin] }
     },

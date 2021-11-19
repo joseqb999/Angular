@@ -44,7 +44,6 @@ namespace MoviesAPI.Controllers
         [HttpGet("{id}", Name = "getMoviesOfActor")]
         public async Task<ActionResult<List<MoviesActorDTO>>> Get(string id)
         {
-            //var person = await context.People.FirstOrDefaultAsync(x => x.Id == id);
 
             var query = from t1 in context.Movies
                         join t2 in context.MoviesActors on t1.Id equals t2.MovieId
@@ -65,9 +64,35 @@ namespace MoviesAPI.Controllers
             }
             var result = new List<MoviesActorDTO>();
             result = mapper.Map<List<MoviesActorDTO>>(joinresult);
-
-            //return mapper.Map<List<MoviesActorDTO>>(result);
             return result;
+        }
+
+        [HttpPost]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        public async Task<ActionResult> Post([FromBody] MoviesActorsCreationDTO moviesActorsCreationDTO)
+        {
+            moviesActorsCreationDTO.Order = 0;
+            if (moviesActorsCreationDTO.MovieId != 0 && moviesActorsCreationDTO.PersonId != "" && moviesActorsCreationDTO.Character != "")
+            {
+                var movieactor = mapper.Map<MoviesActors>(moviesActorsCreationDTO);
+                context.Add(movieactor);
+                await context.SaveChangesAsync();
+            }
+            else
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
+        private static void AnnotateActorsOrder(Movie movie)
+        {
+            if (movie.MoviesActors != null)
+            {
+                for (int i = 0; i < movie.MoviesActors.Count; i++)
+                {
+                    movie.MoviesActors[i].Order = i;
+                }
+            }
         }
     }
 }
