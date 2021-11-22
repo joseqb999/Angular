@@ -29,9 +29,6 @@ export class EditmovieComponent implements OnInit {
 
   updateRecord(form: NgForm) {
     this.service.putMovie(form.value).subscribe(res => {
-      console.log(res);
-      /*      this.resetForm(form);*/
-      /*      this.service.refreshList();*/
     });
   }
 

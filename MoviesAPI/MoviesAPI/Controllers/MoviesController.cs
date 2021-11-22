@@ -45,26 +45,15 @@ namespace MoviesAPI.Controllers
         [EnableCors(PolicyName = "AllowAPIRequestIO")]
         public async Task<ActionResult<List<MovieDTO>>> Get()
         {
-            var top = 6;
+            var top = 7;
             var today = DateTime.Today;
-            //var upcomingReleases = await context.Movies
-            //    .Where(x => x.ReleaseDate > today)
-            //    .OrderBy(x => x.ReleaseDate)
-            //    .Take(top)
-            //    .ToListAsync();
 
-            var inTheaters = await context.Movies
-                .Where(x => x.InTheaters)
-                .Take(top)
+            var allMovies = await context.Movies
+                            .Take(top)
                 .ToListAsync();
 
-            //var result = new IndexMoviePageDTO();
-            //result.InTheaters = mapper.Map<List<MovieDTO>>(inTheaters);
-            //result.UpcomingReleases = mapper.Map<List<MovieDTO>>(upcomingReleases);
-
-            //return result;
             var result = new List<MovieDTO>();
-            result = mapper.Map<List<MovieDTO>>(inTheaters);
+            result = mapper.Map<List<MovieDTO>>(allMovies);
             return result;
         }
 
@@ -131,23 +120,13 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpPost]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Post([FromBody] MovieCreationDTO movieCreationDTO)
         {
+            if (movieCreationDTO.Poster == null)
+                movieCreationDTO.Poster = "";
             var movie = mapper.Map<Movie>(movieCreationDTO);
 
-            //if (movieCreationDTO.Poster != null)
-            //{
-            //    using (var memoryStream = new MemoryStream())
-            //    {
-            //        await movieCreationDTO.Poster.CopyToAsync(memoryStream);
-            //        var content = memoryStream.ToArray();
-            //        var extension = Path.GetExtension(movieCreationDTO.Poster.FileName);
-            //        movie.Poster =
-            //            await fileStorageService.SaveFile(content, extension, containerName,
-            //                                                movieCreationDTO.Poster.ContentType);
-            //    }
-            //}
 
             AnnotateActorsOrder(movie);
 
@@ -169,7 +148,7 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Put(int id, [FromBody] MovieCreationDTO movieCreationDTO)
         {
             var movieDB = await context.Movies.FirstOrDefaultAsync(x => x.Id == id);
@@ -181,19 +160,6 @@ namespace MoviesAPI.Controllers
 
             movieDB = mapper.Map(movieCreationDTO, movieDB);
 
-            //if (movieCreationDTO.Poster != null)
-            //{
-            //    using (var memoryStream = new MemoryStream())
-            //    {
-            //        await movieCreationDTO.Poster.CopyToAsync(memoryStream);
-            //        var content = memoryStream.ToArray();
-            //        var extension = Path.GetExtension(movieCreationDTO.Poster.FileName);
-            //        movieDB.Poster =
-            //            await fileStorageService.EditFile(content, extension, containerName,
-            //                                                movieDB.Poster,
-            //                                                movieCreationDTO.Poster.ContentType);
-            //    }
-            //}
 
             await context.Database.ExecuteSqlInterpolatedAsync($"delete from MoviesActors where MovieId = {movieDB.Id};");
 
@@ -203,43 +169,9 @@ namespace MoviesAPI.Controllers
             return NoContent();
         }
 
-        //[HttpPatch("{id}")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
-        //public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<MoviePatchDTO> patchDocument)
-        //{
-        //    if (patchDocument == null)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    var entityFromDB = await context.Movies.FirstOrDefaultAsync(x => x.Id == id);
-
-        //    if (entityFromDB == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var entityDTO = mapper.Map<MoviePatchDTO>(entityFromDB);
-
-        //    patchDocument.ApplyTo(entityDTO, ModelState);
-
-        //    var isValid = TryValidateModel(entityDTO);
-
-        //    if (!isValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    mapper.Map(entityDTO, entityFromDB);
-
-        //    await context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-
 
         [HttpDelete("{id}")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Delete(int id)
         {
             var exists = await context.Movies.AnyAsync(x => x.Id == id);

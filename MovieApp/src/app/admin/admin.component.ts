@@ -16,7 +16,6 @@ export class AdminComponent implements OnInit {
   }
   getAllPeople() {
     this.service.getAllPeople().subscribe((response) => {
-      //this.moviesList = []
       this.actorsList.push(response)
     });
     console.log(this.actorsList);
@@ -24,7 +23,6 @@ export class AdminComponent implements OnInit {
 
   getAllMovies() {
     this.service.getAllMovies().subscribe((response) => {
-      //this.moviesList = []
       this.moviesList.push(response)
     });
     console.log(this.moviesList);

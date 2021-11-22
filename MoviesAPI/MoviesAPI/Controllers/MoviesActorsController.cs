@@ -68,7 +68,7 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpPost]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Post([FromBody] MoviesActorsCreationDTO moviesActorsCreationDTO)
         {
             moviesActorsCreationDTO.Order = 0;

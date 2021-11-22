@@ -52,6 +52,8 @@ namespace MoviesAPI.Controllers
             var user = new IdentityUser { UserName = model.EmailAddress, Email = model.EmailAddress };
             var result = await _userManager.CreateAsync(user, model.Password);
             await context.SaveChangesAsync();
+            await _userManager.AddToRoleAsync(user, "Actor");
+            await context.SaveChangesAsync();
 
             if (result.Succeeded)
             {

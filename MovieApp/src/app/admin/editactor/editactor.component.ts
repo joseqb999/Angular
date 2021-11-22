@@ -29,9 +29,6 @@ export class EditactorComponent implements OnInit {
 
   updateRecord(form: NgForm) {
     this.service.putActor(form.value).subscribe(res => {
-      console.log(res);
-      /*      this.resetForm(form);*/
-      /*      this.service.refreshList();*/
     });
   }
 
