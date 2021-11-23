@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-castactor',
@@ -13,7 +14,7 @@ export class CastactorComponent implements OnInit {
 
   moviesList: any = [];
   actorsList: any = [];
-  constructor(private service: AdminService) { }
+  constructor(private service: AdminService, private router:Router) { }
 
   ngOnInit(): void {
     this.getAllMovies();
@@ -43,6 +44,7 @@ export class CastactorComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.insertRecord(form);
+    this.router.navigateByUrl('/Admin');
   }
 
   insertRecord(form: NgForm) {

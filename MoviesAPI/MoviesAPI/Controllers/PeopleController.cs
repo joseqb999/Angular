@@ -78,7 +78,8 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [EnableCors(PolicyName = "AllowAPIRequestIO")]
+       // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Post([FromForm] PersonCreationDTO personCreationDTO)
         {
             var person = mapper.Map<Person>(personCreationDTO);
@@ -103,7 +104,8 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [EnableCors(PolicyName = "AllowAPIRequestIO")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Put(string id, [FromBody] PersonCreationDTO personCreationDTO)
         {
             var personDB = await context.People.FirstOrDefaultAsync(x => x.Id == id);
@@ -156,7 +158,8 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [EnableCors(PolicyName = "AllowAPIRequestIO")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
         public async Task<ActionResult> Delete(string id)
         {
             var exists = await context.People.AnyAsync(x => x.Id == id);

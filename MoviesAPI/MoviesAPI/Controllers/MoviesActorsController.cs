@@ -42,6 +42,7 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpGet("{id}", Name = "getMoviesOfActor")]
+        [EnableCors(PolicyName = "AllowAPIRequestIO")]
         public async Task<ActionResult<List<MoviesActorDTO>>> Get(string id)
         {
 
@@ -68,7 +69,8 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [EnableCors(PolicyName = "AllowAPIRequestIO")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Roles = "Admin")]
         public async Task<ActionResult> Post([FromBody] MoviesActorsCreationDTO moviesActorsCreationDTO)
         {
             moviesActorsCreationDTO.Order = 0;
